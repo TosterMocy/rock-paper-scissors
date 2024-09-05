@@ -9,16 +9,32 @@ const roundResultHTML = document.querySelector('.result');
 const playerScoreHTML = document.querySelector('.player h3');
 const computerScoreHTML = document.querySelector('.computer h3');
 const gameButtons = document.querySelectorAll(".game-button");
+const gamesPlayedHTML = document.querySelector(".overall.games");
+const gameResultHTML = document.querySelector('.game-result');
+const overallPlayerScoreHTML = document.querySelector('.overall.player');
+const overallComputerScoreHTML = document.querySelector('.overall.computer');
 
 let playerChoice='';
 let computerChoice='';
-let roundNumber = 0;
+let gameNumber = 0;
+let overallPlayerScore = 0;
+let overallComputerScore = 0;
 
 
 gameButtons.forEach( (button) => {
     button.addEventListener('click', () =>{
         startGameRound(button);
-        if(playerGameScore === 3 || computerGameScore===3)restartGame();
+        if(playerGameScore === 3 || computerGameScore === 3){
+            if(playerGameScore === 3) {
+                overallPlayerScore++;
+                gameResultHTML.textContent = 'YOU WON!';
+            }
+            else {
+                overallComputerScore++;
+                gameResultHTML.textContent = "COMPUTER WON :/"
+            }
+            restartGame();
+        }
     });    
     }) 
 
@@ -28,13 +44,16 @@ function restartGame(){
     computerGameScore=0;
     playerScoreHTML.textContent = playerGameScore;
     computerScoreHTML.textContent = computerGameScore;
-    roundNumber=0;
+    gameNumber++;
+    gamesPlayedHTML.textContent = gameNumber;
+    overallComputerScoreHTML.textContent = overallComputerScore;
+    overallPlayerScoreHTML.textContent = overallPlayerScore;
+    
 
 }
 
 function startGameRound(clickedButton){
-
-    roundNumber++;
+    gameResultHTML.textContent = '...';
     getPlayerGameMove(clickedButton);
     let roundWinner = compareMove(playerChoice, computerChoice);
     assignScore(roundWinner);
