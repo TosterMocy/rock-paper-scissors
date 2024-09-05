@@ -99,3 +99,9 @@ body{
     flex-grow: 0;
     
 }
+
+.choice{
+    padding-top: 30px;
+    font-size: 35px;
+    font-weight: bold;
+}
